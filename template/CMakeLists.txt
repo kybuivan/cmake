@@ -4,15 +4,24 @@ cmake_minimum_required(VERSION 3.10)
 #	cmake_policy(SET CMP0058 NEW)
 #endif()
 
+set(CMAKE_CXX_STANDARD 11)
+
 project("project"
     VERSION 0.1.0
 )
 
-set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${PROJECT_SOURCE_DIR}/cmake/external)
 
-if (NOT CMAKE_VERSION VERSION_LESS "3.1.0")
-	set (CMAKE_CXX_STANDARD "98")
-	set (CMAKE_CXX_EXTENSIONS OFF)
-endif()
+include(FetchContent)
+include(opencv)
+#include(googletest)
+#include(boost)
+include(nfd)
+include(imgui)
 
-add_subdirectory(src)
+include_directories(SYSTEM ${opencv_INCLUDE_DIRS})
+
+add_executable(myProj main.cpp App.cpp)
+target_link_libraries(myProj PRIVATE imgui::imgui ${opencv_LIBS} nfd)
+
+#add_subdirectory(src)
