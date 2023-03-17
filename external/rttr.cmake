@@ -10,6 +10,6 @@ set(BUILD_STATIC ON CACHE INTERNAL "" FORCE)
 FetchContent_Declare(
     rttr
     GIT_REPOSITORY https://github.com/rttrorg/rttr.git
-    GIT_TAG v0.9.6
+    GIT_TAG master
 )
 FetchContent_MakeAvailable(rttr)
