@@ -1,5 +1,6 @@
 find_package(flecs QUIET)
 
+set(FLECS_SHARED OFF CACHE INTERNAL "")
 if (NOT flecs_FOUND)
     FetchContent_Declare(
         flecs       
