@@ -1,9 +1,9 @@
-include(fmt)
-
 # Lots of compilation errors without this setting
-option(SPDLOG_FMT_EXTERNAL "Use external fmt library instead of bundled" ON)
-option(SPDLOG_INSTALL "Generate the install target" ON)
-set(CMAKE_INSTALL_DEFAULT_COMPONENT_NAME "spdlog")
+set(SPDLOG_FMT_EXTERNAL ON CACHE BOOL "" FORCE)
+set(SPDLOG_INSTALL OFF CACHE BOOL "" FORCE)
+set(SPDLOG_BUILD_EXAMPLE OFF CACHE BOOL "" FORCE)
+set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "" FORCE)
+set(SPDLOG_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 
 FetchContent_Declare(
         spdlog
