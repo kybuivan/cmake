@@ -10,16 +10,26 @@
 # 
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 
+if(TARGET SDL2::SDL2)
+    return()
+endif()
+
+message(STATUS "Third-party (external): creating target 'SDL2::SDL2'")
+
+include(FetchContent)
+
+FetchContent_Declare(
+    SDL2
+    GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
+    GIT_TAG  release-2.26.5
+)
 
 set( SDL_SHARED OFF CACHE BOOL "SDL2 option" FORCE )
 set( SDL_STATIC ON CACHE BOOL "SDL2 option" FORCE )
 
-FetchContent_Declare(
-    sdl2
-    GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
-    GIT_TAG release-2.0.22
-)
+FetchContent_MakeAvailable(SDL2)
 
-FetchContent_MakeAvailable(sdl2)
+add_library(SDL2::SDL2 ALIAS SDL2-static)
+add_library(SDL2::SDL2main ALIAS SDL2main)
