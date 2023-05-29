@@ -12,17 +12,27 @@
 # copies or substantial portions of the Software.
 # 
 
-set(BUILD_PROGRAMS    OFF CACHE BOOL "" FORCE)
-set(BUILD_EXAMPLES   OFF CACHE BOOL "" FORCE)
-set(ENABLE_CPACK     OFF CACHE BOOL "" FORCE)
-set(ENABLE_BOW_DOCS     OFF CACHE BOOL "" FORCE)
-set(ENABLE_PACKAGE_CONFIG     OFF CACHE BOOL "" FORCE)
-set(INSTALL_PKGCONFIG_MODULE     OFF CACHE BOOL "" FORCE)
-set(BUILD_TESTING     OFF CACHE BOOL "" FORCE)
+if(TARGET sndfile::sndfile)
+    return()
+endif()
+
+message(STATUS "Third-party (external): creating target 'sndfile::sndfile'")
+
+include(FetchContent)
 
 FetchContent_Declare(
-    libsndfile
+    sndfile
     GIT_REPOSITORY https://github.com/libsndfile/libsndfile.git
-    GIT_TAG 1.1.0
+    GIT_TAG 1.2.0
 )
-FetchContent_MakeAvailable(libsndfile)
+
+set(BUILD_PROGRAMS OFF CACHE BOOL "Build programs" FORCE)
+set(BUILD_EXAMPLES OFF CACHE BOOL "Build examples" FORCE)
+set(ENABLE_CPACK OFF CACHE BOOL "Enable CPack support" FORCE)
+set(ENABLE_BOW_DOCS OFF CACHE BOOL "Enable black-on-white html docs" FORCE)
+set(ENABLE_PACKAGE_CONFIG OFF CACHE BOOL "Generate and install package config file" FORCE)
+set(INSTALL_PKGCONFIG_MODULE OFF CACHE BOOL "Generate and install pkg-config module" FORCE)
+set(BUILD_TESTING OFF CACHE BOOL "Build tests" FORCE)
+
+FetchContent_MakeAvailable(sndfile)
+add_library(sndfile::sndfile ALIAS sndfile)

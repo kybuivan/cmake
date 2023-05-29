@@ -12,8 +12,14 @@
 # copies or substantial portions of the Software.
 # 
 
-set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
-set(BUILD_TESTS OFF CACHE BOOL "" FORCE)
+if(TARGET tinyxml2::tinyxml2)
+    return()
+endif()
+
+message(STATUS "Third-party (external): creating target 'tinyxml2::tinyxml2'")
+
+include(FetchContent)
+
 FetchContent_Declare(
     tinyxml2
     GIT_REPOSITORY https://github.com/leethomason/tinyxml2.git
@@ -21,4 +27,8 @@ FetchContent_Declare(
     GIT_PROGRESS TRUE
     FETCHCONTENT_UPDATES_DISCONNECTED
 )
+
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(BUILD_TESTS OFF CACHE BOOL "Build tests for tinyxml2" FORCE)
+
 FetchContent_MakeAvailable(tinyxml2)
