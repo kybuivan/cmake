@@ -12,10 +12,18 @@
 # copies or substantial portions of the Software.
 # 
 
+if(TARGET stb::stb)
+    return()
+endif()
+
+message(STATUS "Third-party (external): creating target 'stb::stb'")
+
+include(FetchContent)
+
 FetchContent_Declare(
     stb
     GIT_REPOSITORY https://github.com/nothings/stb.git
-    GIT_TAG f67165c2bb2af3060ecae7d20d6f731173485ad0
+    GIT_TAG master
 )
 FetchContent_MakeAvailable(stb)
 
@@ -32,6 +40,6 @@ configure_file(${stb_BINARY_DIR}/stb_image.cpp.in ${stb_BINARY_DIR}/stb_image.cp
 
 # Define stb library
 add_library(stb ${stb_BINARY_DIR}/stb_image.cpp)
-add_library(stb::stb ALIAS stb)
-
 target_include_directories(stb PUBLIC "${stb_SOURCE_DIR}")
+
+add_library(stb::stb ALIAS stb)
