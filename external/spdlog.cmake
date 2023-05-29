@@ -12,17 +12,25 @@
 # copies or substantial portions of the Software.
 # 
 
+if(TARGET spdlog::spdlog)
+    return()
+endif()
 
-# Lots of compilation errors without this setting
-set(SPDLOG_FMT_EXTERNAL ON CACHE BOOL "" FORCE)
-set(SPDLOG_INSTALL OFF CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_EXAMPLE OFF CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+message(STATUS "Third-party (external): creating target 'spdlog::spdlog'")
+
+include(FetchContent)
 
 FetchContent_Declare(
-        spdlog
-        GIT_REPOSITORY https://github.com/gabime/spdlog.git
-        GIT_TAG        v1.10.0
+    spdlog
+    GIT_REPOSITORY https://github.com/gabime/spdlog.git
+    GIT_TAG v1.11.0
 )
+
+# Lots of compilation errors without this setting
+set(SPDLOG_FMT_EXTERNAL ON CACHE BOOL "Use external fmt library instead of bundled" FORCE)
+set(SPDLOG_INSTALL OFF CACHE BOOL "Generate the install target" FORCE)
+set(SPDLOG_BUILD_EXAMPLE OFF CACHE BOOL "Build example" FORCE)
+set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "Build shared library" FORCE)
+set(SPDLOG_BUILD_TESTS OFF CACHE BOOL "Build tests" FORCE)
+
 FetchContent_MakeAvailable(spdlog)
