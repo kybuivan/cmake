@@ -39,21 +39,21 @@ set(BUILD_opencv_ml OFF CACHE INTERNAL "")
 set(BUILD_opencv_world OFF CACHE INTERNAL "")
 
 FetchContent_Declare(
-        OpenCV
+        opencv
         GIT_REPOSITORY https://github.com/opencv/opencv.git
         GIT_TAG        4.7.0
         GIT_SHALLOW    TRUE
         OVERRIDE_FIND_PACKAGE
 )
 
-FetchContent_MakeAvailable(OpenCV)
-set(OpenCV_INCLUDE_DIRS "")
-list(APPEND OpenCV_INCLUDE_DIRS ${OPENCV_CONFIG_FILE_INCLUDE_DIR})
-list(APPEND OpenCV_INCLUDE_DIRS 
+FetchContent_MakeAvailable(opencv)
+set(opencv_INCLUDE_DIRS "")
+list(APPEND opencv_INCLUDE_DIRS ${OPENCV_CONFIG_FILE_INCLUDE_DIR})
+list(APPEND opencv_INCLUDE_DIRS 
         ${OPENCV_MODULE_opencv_core_LOCATION}/include
         ${OPENCV_MODULE_opencv_imgproc_LOCATION}/include
         ${OPENCV_MODULE_opencv_imgcodecs_LOCATION}/include
         ${OPENCV_MODULE_opencv_highgui_LOCATION}/include)
-list(APPEND OpenCV_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR} ${OpenCV_SOURCE_DIR}/include)
-set(OpenCV_LIBS "")
-list(APPEND OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)
+list(APPEND opencv_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR} ${opencv_SOURCE_DIR}/include)
+set(opencv_LIBS "")
+list(APPEND opencv_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)

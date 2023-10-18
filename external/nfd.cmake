@@ -12,11 +12,11 @@
 # copies or substantial portions of the Software.
 #
 
-if(TARGET nfd::nfd)
+if(TARGET external::nfd)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'nfd::nfd'")
+message(STATUS "Third-party (external): creating target 'external::nfd'")
 
 include(FetchContent)
 
@@ -28,4 +28,4 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(nfd)
 
-add_library(nfd::nfd ALIAS nfd)
+add_library(external::nfd ALIAS nfd)

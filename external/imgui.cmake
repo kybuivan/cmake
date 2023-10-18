@@ -12,11 +12,11 @@
 # copies or substantial portions of the Software.
 #
 
-if(TARGET imgui::imgui)
+if(TARGET external::imgui)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'imgui::imgui'")
+message(STATUS "Third-party (external): creating target 'external::imgui'")
 
 include(FetchContent)
 
@@ -49,6 +49,6 @@ target_include_directories(imgui PUBLIC
     ${imgui_SOURCE_DIR}/backends
     ${imgui_SOURCE_DIR}/misc/cpp
 )
-target_link_libraries(imgui PUBLIC glfw::glfw)
+target_link_libraries(imgui PUBLIC external::glfw)
 
-add_library(imgui::imgui ALIAS imgui)
+add_library(external::imgui ALIAS imgui)
