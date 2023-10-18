@@ -12,18 +12,18 @@
 # copies or substantial portions of the Software.
 #
 
-if(TARGET glad::glad)
+if(TARGET external::glad)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'glad::glad'")
+message(STATUS "Third-party (external): creating target 'external::glad'")
 
 include(FetchContent)
 
 FetchContent_Declare(
   glad
   GIT_REPOSITORY "https://github.com/Dav1dde/glad.git"
-  GIT_TAG        "glad2"
+  GIT_TAG        "v2.0.4"
 )
 
 set(GLAD_PROFILE "core" CACHE STRING "OpenGL profile" )
@@ -36,5 +36,5 @@ if(NOT glad_POPULATED)
 
   add_subdirectory(${glad_SOURCE_DIR}/cmake ${glad_BINARY_DIR})
   glad_add_library(glad STATIC API gl:core=4.6)
-  add_library(glad::glad ALIAS glad)
+  add_library(external::glad ALIAS glad)
 endif()

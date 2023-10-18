@@ -12,11 +12,11 @@
 # copies or substantial portions of the Software.
 # 
 
-if(TARGET tinyxml2::tinyxml2)
+if(TARGET external::tinyxml2)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'tinyxml2::tinyxml2'")
+message(STATUS "Third-party (external): creating target 'external::tinyxml2'")
 
 include(FetchContent)
 
@@ -29,6 +29,8 @@ FetchContent_Declare(
 )
 
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
-set(BUILD_TESTS OFF CACHE BOOL "Build tests for tinyxml2" FORCE)
+set(tinyxml2_BUILD_TESTING OFF CACHE BOOL "Build tests for tinyxml2" FORCE)
 
 FetchContent_MakeAvailable(tinyxml2)
+
+add_library(external::tinyxml2 ALIAS tinyxml2)

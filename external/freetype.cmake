@@ -10,26 +10,33 @@
 # 
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-#
+# 
 
-if(TARGET SDL2::SDL2)
+if(TARGET external::freetype)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'SDL2::SDL2'")
+message(STATUS "Third-party (external): creating target 'external::freetype'")
 
 include(FetchContent)
 
 FetchContent_Declare(
-    SDL2
-    GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
-    GIT_TAG  release-2.26.5
+    freetype 
+    GIT_REPOSITORY https://github.com/freetype/freetype.git
+    GIT_TAG VER-2-13-2
 )
 
-set( SDL_SHARED OFF CACHE BOOL "SDL2 option" FORCE )
-set( SDL_STATIC ON CACHE BOOL "SDL2 option" FORCE )
+cmake_policy(SET CMP0077 NEW)
 
-FetchContent_MakeAvailable(SDL2)
+set(FT_DISABLE_BZIP2 ON)
+set(FT_DISABLE_HARFBUZZ ON)
+set(FT_DISABLE_PNG ON)
+set(FT_DISABLE_BROTLI ON)
+set(FT_DISABLE_ZLIB ON)
+set(SKIP_INSTALL_ALL ON)
 
-add_library(SDL2::SDL2 ALIAS SDL2-static)
-add_library(SDL2::SDL2main ALIAS SDL2main)
+FetchContent_MakeAvailable(freetype)
+
+if(NOT TARGET external::freetype)
+	add_library(external::freetype ALIAS freetype)
+endif()

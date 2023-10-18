@@ -12,26 +12,19 @@
 # copies or substantial portions of the Software.
 #
 
-if(TARGET external::glfw)
+if(TARGET external::filesystem)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'external::glfw'")
+message(STATUS "Third-party (external): creating target 'external::filesystem'")
 
 include(FetchContent)
-
 FetchContent_Declare(
-    glfw
-    GIT_REPOSITORY https://github.com/glfw/glfw.git
-    GIT_TAG 3.3.8
+    filesystem
+    GIT_REPOSITORY https://github.com/gulrak/filesystem.git
+    GIT_TAG        v1.5.4
 )
+FetchContent_MakeAvailable(filesystem)
 
-set(GLFW_BUILD_EXAMPLES OFF CACHE INTERNAL "Build the GLFW example programs")
-set(GLFW_BUILD_TESTS OFF CACHE INTERNAL "Build the GLFW test programs")
-set(GLFW_BUILD_DOCS OFF CACHE INTERNAL "Build the GLFW documentation")
-set(GLFW_INSTALL OFF CACHE INTERNAL "Generate installation target")
-set(GLFW_VULKAN_STATIC OFF CACHE INTERNAL "Use the Vulkan loader statically linked into application")
-
-FetchContent_MakeAvailable(glfw)
-
-add_library(external::glfw ALIAS glfw)
+target_compile_definitions(ghc_filesystem INTERFACE GHC_WIN_WSTRING_STRING_TYPE)
+add_library(external::filesystem ALIAS ghc_filesystem)

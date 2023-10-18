@@ -12,18 +12,26 @@
 # copies or substantial portions of the Software.
 #
 
-set(CVPLOT_USE_CONAN OFF CACHE INTERNAL "")
-set(BUILD_SHARED_LIBS OFF CACHE INTERNAL "")
-#set(CVPLOT_HEADER_ONLY OFF CACHE INTERNAL "")
-set(CVPLOT_WITH_TESTS OFF CACHE INTERNAL "")
-set(CVPLOT_WITH_EXAMPLES OFF CACHE INTERNAL "")
+if(TARGET external::cvplot)
+    return()
+endif()
+
+message(STATUS "Third-party (external): creating target 'external::cvplot'")
+
+include(FetchContent)
+
 FetchContent_Declare(
     cvplot
     GIT_REPOSITORY https://github.com/Profactor/cv-plot.git
-    GIT_TAG master
-    GIT_SHALLOW TRUE
+    GIT_TAG  v1.2.2
 )
 
-# Find the custom-built version of OpenCV
-set(OpenCV_DIR ${CMAKE_BINARY_DIR})
+set(BUILD_SHARED_LIBS OFF CACHE INTERNAL "Build shared libs")
+set(CVPLOT_USE_CONAN OFF CACHE INTERNAL "Use opencv from conan package manager")
+set(CVPLOT_HEADER_ONLY OFF CACHE INTERNAL "Use as header only library")
+set(CVPLOT_WITH_TESTS OFF CACHE INTERNAL "Build with tests")
+set(CVPLOT_WITH_EXAMPLES OFF CACHE INTERNAL "Build with examples")
+
 FetchContent_MakeAvailable(cvplot)
+
+add_library(external::cvplot ALIAS CvPlot)

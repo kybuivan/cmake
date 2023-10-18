@@ -12,11 +12,11 @@
 # copies or substantial portions of the Software.
 # 
 
-if(TARGET stb::stb)
+if(TARGET external::stb)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'stb::stb'")
+message(STATUS "Third-party (external): creating target 'external::stb'")
 
 include(FetchContent)
 
@@ -42,4 +42,4 @@ configure_file(${stb_BINARY_DIR}/stb_image.cpp.in ${stb_BINARY_DIR}/stb_image.cp
 add_library(stb ${stb_BINARY_DIR}/stb_image.cpp)
 target_include_directories(stb PUBLIC "${stb_SOURCE_DIR}")
 
-add_library(stb::stb ALIAS stb)
+add_library(external::stb ALIAS stb)

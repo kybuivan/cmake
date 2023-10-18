@@ -1,6 +1,6 @@
-#
+# 
 # Copyright (c) 2023 Ky Bui Van
-#
+# 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -10,21 +10,23 @@
 # 
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-#
+# 
 
-if(TARGET filesystem::filesystem)
+if(TARGET external::raylib)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'filesystem::filesystem'")
+message(STATUS "Third-party (external): creating target 'external::raylib'")
 
 include(FetchContent)
-FetchContent_Declare(
-    filesystem
-    GIT_REPOSITORY https://github.com/gulrak/filesystem.git
-    GIT_TAG        v1.5.4
-)
-FetchContent_MakeAvailable(filesystem)
 
-target_compile_definitions(ghc_filesystem INTERFACE GHC_WIN_WSTRING_STRING_TYPE)
-add_library(filesystem::filesystem ALIAS ghc_filesystem)
+FetchContent_Declare(
+  raylib
+  GIT_REPOSITORY https://github.com/raysan5/raylib.git
+  GIT_TAG        4.5.0
+  GIT_SHALLOW    true
+)
+
+FetchContent_MakeAvailable(raylib)
+
+add_library(external::raylib ALIAS raylib)

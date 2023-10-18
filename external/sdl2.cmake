@@ -1,6 +1,6 @@
-#
+# 
 # Copyright (c) 2023 Ky Bui Van
-#
+# 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -12,26 +12,24 @@
 # copies or substantial portions of the Software.
 #
 
-if(TARGET external::glfw)
+if(TARGET external::sdl2)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'external::glfw'")
+message(STATUS "Third-party (external): creating target 'external::sdl2'")
 
 include(FetchContent)
 
 FetchContent_Declare(
-    glfw
-    GIT_REPOSITORY https://github.com/glfw/glfw.git
-    GIT_TAG 3.3.8
+    sdl2
+    GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
+    GIT_TAG  release-2.26.5
 )
 
-set(GLFW_BUILD_EXAMPLES OFF CACHE INTERNAL "Build the GLFW example programs")
-set(GLFW_BUILD_TESTS OFF CACHE INTERNAL "Build the GLFW test programs")
-set(GLFW_BUILD_DOCS OFF CACHE INTERNAL "Build the GLFW documentation")
-set(GLFW_INSTALL OFF CACHE INTERNAL "Generate installation target")
-set(GLFW_VULKAN_STATIC OFF CACHE INTERNAL "Use the Vulkan loader statically linked into application")
+set( SDL_SHARED OFF CACHE BOOL "SDL2 option" FORCE )
+set( SDL_STATIC ON CACHE BOOL "SDL2 option" FORCE )
 
-FetchContent_MakeAvailable(glfw)
+FetchContent_MakeAvailable(SDL2)
 
-add_library(external::glfw ALIAS glfw)
+add_library(external::sdl2 ALIAS SDL2-static)
+add_library(external::sdl2main ALIAS SDL2main)

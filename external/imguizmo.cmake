@@ -12,11 +12,11 @@
 # copies or substantial portions of the Software.
 #
 
-if(TARGET imguizmo::imguizmo)
+if(TARGET external::imguizmo)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'imguizmo::imguizmo'")
+message(STATUS "Third-party (external): creating target 'external::imguizmo'")
 
 include(FetchContent)
 FetchContent_Declare(
@@ -30,7 +30,6 @@ add_library(imguizmo
     "${imguizmo_SOURCE_DIR}/ImGuizmo.h"
     "${imguizmo_SOURCE_DIR}/ImGuizmo.cpp"
 )
-add_library(imguizmo::imguizmo ALIAS imguizmo)
 
 target_include_directories(imguizmo PUBLIC "${imguizmo_SOURCE_DIR}")
 target_link_libraries(imguizmo PUBLIC imgui::imgui)
@@ -49,3 +48,5 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
         "-Wno-unused-const-variable" "-Wno-unused-function" "-Wno-deprecated-copy"
     )
 endif()
+
+add_library(external::imguizmo ALIAS imguizmo)
