@@ -12,20 +12,20 @@
 # copies or substantial portions of the Software.
 #
 
-if(TARGET external::fmt)
+if(TARGET external::ldtk_loader)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'external::fmt'")
+message(STATUS "Third-party (external): creating target 'external::ldtk_loader'")
 
 include(FetchContent)
 
 FetchContent_Declare(
-    fmt
-    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-    GIT_TAG 9.1.0
+    ldtk_loader
+    GIT_REPOSITORY https://github.com/Madour/LDtkLoader.git
+    GIT_TAG        1.2.2
 )
 
-FetchContent_MakeAvailable(fmt)
+FetchContent_MakeAvailable(ldtk_loader)
 
-add_library(external::fmt ALIAS fmt)
+add_library(external::ldtk_loader ALIAS LDtkLoader)

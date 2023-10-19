@@ -12,20 +12,25 @@
 # copies or substantial portions of the Software.
 #
 
-if(TARGET external::fmt)
+if(TARGET external::box2d)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'external::fmt'")
+message(STATUS "Third-party (external): creating target 'external::box2d'")
 
 include(FetchContent)
 
 FetchContent_Declare(
-    fmt
-    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-    GIT_TAG 9.1.0
+    box2d
+    GIT_REPOSITORY https://github.com/erincatto/box2d.git
+    GIT_TAG        v2.4.1
 )
 
-FetchContent_MakeAvailable(fmt)
+set(BOX2D_BUILD_UNIT_TESTS OFF CACHE BOOL  "Build the Box2D unit tests" FORCE)
+set(BOX2D_BUILD_TESTBED OFF CACHE BOOL  "Build the Box2D testbed" FORCE)
+set(BOX2D_BUILD_DOCS OFF CACHE BOOL  "Build the Box2D documentation" FORCE)
+set(BOX2D_USER_SETTINGS OFF CACHE BOOL  "Override Box2D settings with b2UserSettings.h" FORCE)
 
-add_library(external::fmt ALIAS fmt)
+FetchContent_MakeAvailable(box2d)
+
+add_library(external::box2d ALIAS box2d)

@@ -12,6 +12,22 @@
 # copies or substantial portions of the Software.
 # 
 
+if(TARGET external::opencv)
+    return()
+endif()
+
+message(STATUS "Third-party (external): creating target 'external::opencv'")
+
+include(FetchContent)
+
+FetchContent_Declare(
+    opencv
+    GIT_REPOSITORY https://github.com/opencv/opencv.git
+    GIT_TAG        4.7.0
+    GIT_SHALLOW    TRUE
+    OVERRIDE_FIND_PACKAGE
+)
+
 set(BUILD_SHARED_LIBS OFF CACHE INTERNAL "")
 set(BUILD_DOCS OFF CACHE INTERNAL "")
 set(BUILD_EXAMPLES OFF CACHE INTERNAL "")
@@ -38,15 +54,8 @@ set(BUILD_opencv_stitching OFF CACHE INTERNAL "")
 set(BUILD_opencv_ml OFF CACHE INTERNAL "")
 set(BUILD_opencv_world OFF CACHE INTERNAL "")
 
-FetchContent_Declare(
-        opencv
-        GIT_REPOSITORY https://github.com/opencv/opencv.git
-        GIT_TAG        4.7.0
-        GIT_SHALLOW    TRUE
-        OVERRIDE_FIND_PACKAGE
-)
-
 FetchContent_MakeAvailable(opencv)
+
 set(opencv_INCLUDE_DIRS "")
 list(APPEND opencv_INCLUDE_DIRS ${OPENCV_CONFIG_FILE_INCLUDE_DIR})
 list(APPEND opencv_INCLUDE_DIRS 
