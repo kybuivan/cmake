@@ -12,17 +12,16 @@
 # copies or substantial portions of the Software.
 # 
 
-if(TARGET OpenAL::OpenAL)
+if(TARGET external::openal)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'OpenAL::OpenAL'")
+message(STATUS "Third-party (external): creating target 'external::openal'")
 
 include(FetchContent)
- 
 
 FetchContent_Declare(
-    OpenAL
+    openal
     GIT_REPOSITORY https://github.com/kcat/openal-soft.git
     GIT_TAG 1.23.1
 )
@@ -38,4 +37,6 @@ set(ALSOFT_REQUIRE_SDL2 OFF CACHE BOOL "Require SDL2 backend" FORCE)
 set(ALSOFT_UPDATE_BUILD_VERSION OFF CACHE BOOL "Update git build version info" FORCE)
 set(LIBTYPE "STATIC")
 
-FetchContent_MakeAvailable(OpenAL)
+FetchContent_MakeAvailable(openal)
+
+add_library(external::openal ALIAS OpenAL)

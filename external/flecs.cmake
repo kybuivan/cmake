@@ -12,15 +12,22 @@
 # copies or substantial portions of the Software.
 #
 
-find_package(flecs QUIET)
-
-set(FLECS_SHARED OFF CACHE INTERNAL "")
-if (NOT flecs_FOUND)
-    FetchContent_Declare(
-        flecs       
-        GIT_REPOSITORY https://github.com/SanderMertens/flecs.git
-        GIT_TAG v3.1.5
-    )  
-
-    FetchContent_MakeAvailable(flecs)
+if(TARGET external::flecs)
+    return()
 endif()
+
+message(STATUS "Third-party (external): creating target 'external::flecs'")
+
+include(FetchContent)
+
+FetchContent_Declare(
+    flecs       
+    GIT_REPOSITORY https://github.com/SanderMertens/flecs.git
+    GIT_TAG v3.1.5
+)
+
+set(FLECS_SHARED OFF CACHE INTERNAL "Build shared flecs lib" FORCE)
+
+FetchContent_MakeAvailable(flecs)
+
+add_library(external::flecs ALIAS flecs)

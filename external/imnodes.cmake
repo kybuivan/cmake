@@ -12,12 +12,20 @@
 # copies or substantial portions of the Software.
 #
 
-# Get and configure imnodes
+if(TARGET external::imnodes)
+    return()
+endif()
+
+message(STATUS "Third-party (external): creating target 'external::imnodes'")
+
+include(FetchContent)
+
 FetchContent_Declare(
         imnodes
         GIT_REPOSITORY https://github.com/Nelarius/imnodes.git
         GIT_TAG v0.5
 )
+
 FetchContent_GetProperties(imnodes)
 if (NOT imnodes_POPULATED)
     FetchContent_Populate(imnodes)
@@ -26,6 +34,8 @@ if (NOT imnodes_POPULATED)
             "${imnodes_SOURCE_DIR}/imnodes_internal.h"
             "${imnodes_SOURCE_DIR}/imnodes.cpp")
     target_include_directories(imnodes PUBLIC ${imnodes_SOURCE_DIR})
-    target_link_libraries(imnodes PUBLIC imgui::imgui)
+    target_link_libraries(imnodes PUBLIC external::imgui)
     target_compile_definitions(imnodes PUBLIC IMGUI_DEFINE_MATH_OPERATORS)
 endif()
+
+add_library(external::imnodes ALIAS imnodes)

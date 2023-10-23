@@ -12,6 +12,15 @@
 # copies or substantial portions of the Software.
 #
 
+if(TARGET external::entt)
+    return()
+endif()
+
+message(STATUS "Third-party (external): creating target 'external::entt'")
+
+include(FetchContent)
+
+
 FetchContent_Declare(
   entt
   GIT_REPOSITORY https://github.com/skypjack/entt.git
@@ -20,3 +29,5 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(entt)
+
+add_library(external::entt ALIAS EnTT)

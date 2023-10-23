@@ -12,21 +12,24 @@
 # copies or substantial portions of the Software.
 #
 
-if(TARGET external::googletest)
+if(TARGET external::gtest)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'external::googletest'")
+message(STATUS "Third-party (external): creating target 'external::gtest'")
 
 include(FetchContent)
 
 FetchContent_Declare(
-  googletest
+  gtest
   GIT_REPOSITORY https://github.com/google/googletest.git
   GIT_TAG        v1.14.0
 )
 
-  # For Windows: Prevent overriding the parent project's compiler/linker settings
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+set(BUILD_GMOCK OFF CACHE BOOL "Builds the googlemock subproject" FORCE)
+set(gtest_force_shared_crt ON CACHE BOOL "Use shared (DLL) run-time lib even when Google Test is built as static lib." FORCE)
 
-FetchContent_MakeAvailable(googletest)
+FetchContent_MakeAvailable(gtest)
+
+add_library(external::gtest ALIAS gtest)
+add_library(external::gtest_main ALIAS gtest_main)

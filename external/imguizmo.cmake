@@ -32,7 +32,7 @@ add_library(imguizmo
 )
 
 target_include_directories(imguizmo PUBLIC "${imguizmo_SOURCE_DIR}")
-target_link_libraries(imguizmo PUBLIC imgui::imgui)
+target_link_libraries(imguizmo PUBLIC external::imgui)
 target_compile_definitions(imguizmo PUBLIC IMGUI_DEFINE_MATH_OPERATORS)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
