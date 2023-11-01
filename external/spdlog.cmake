@@ -12,11 +12,11 @@
 # copies or substantial portions of the Software.
 # 
 
-if(TARGET spdlog::spdlog)
+if(TARGET external::spdlog)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'spdlog::spdlog'")
+message(STATUS "Third-party (external): creating target 'external::spdlog'")
 
 include(FetchContent)
 
@@ -34,3 +34,4 @@ set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "Build shared library" FORCE)
 set(SPDLOG_BUILD_TESTS OFF CACHE BOOL "Build tests" FORCE)
 
 FetchContent_MakeAvailable(spdlog)
+add_library(external::spdlog ALIAS spdlog)

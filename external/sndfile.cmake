@@ -12,11 +12,11 @@
 # copies or substantial portions of the Software.
 # 
 
-if(TARGET sndfile::sndfile)
+if(TARGET external::sndfile)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'sndfile::sndfile'")
+message(STATUS "Third-party (external): creating target 'external::sndfile'")
 
 include(FetchContent)
 
@@ -35,4 +35,4 @@ set(INSTALL_PKGCONFIG_MODULE OFF CACHE BOOL "Generate and install pkg-config mod
 set(BUILD_TESTING OFF CACHE BOOL "Build tests" FORCE)
 
 FetchContent_MakeAvailable(sndfile)
-add_library(sndfile::sndfile ALIAS sndfile)
+add_library(external::sndfile ALIAS sndfile)
