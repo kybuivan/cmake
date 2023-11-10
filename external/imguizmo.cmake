@@ -22,13 +22,22 @@ include(FetchContent)
 FetchContent_Declare(
     imguizmo
     GIT_REPOSITORY https://github.com/CedricGuillemet/ImGuizmo.git
-    GIT_TAG master
+    GIT_TAG 090184e4b315bd508929a362c4d4fa9b36b1249f
 )
 FetchContent_MakeAvailable(imguizmo)
 
 add_library(imguizmo
+    "${imguizmo_SOURCE_DIR}/GraphEditor.h"
+    "${imguizmo_SOURCE_DIR}/GraphEditor.cpp"
+    "${imguizmo_SOURCE_DIR}/ImCurveEdit.h"
+    "${imguizmo_SOURCE_DIR}/ImCurveEdit.cpp"
+    "${imguizmo_SOURCE_DIR}/ImGradient.h"
+    "${imguizmo_SOURCE_DIR}/ImGradient.cpp"
     "${imguizmo_SOURCE_DIR}/ImGuizmo.h"
     "${imguizmo_SOURCE_DIR}/ImGuizmo.cpp"
+    "${imguizmo_SOURCE_DIR}/ImSequencer.h"
+    "${imguizmo_SOURCE_DIR}/ImSequencer.cpp"
+    "${imguizmo_SOURCE_DIR}/ImZoomSlider.h"
 )
 
 target_include_directories(imguizmo PUBLIC "${imguizmo_SOURCE_DIR}")
