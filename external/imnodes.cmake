@@ -23,7 +23,7 @@ include(FetchContent)
 FetchContent_Declare(
         imnodes
         GIT_REPOSITORY https://github.com/Nelarius/imnodes.git
-        GIT_TAG v0.5
+        GIT_TAG d88f99125bb72cdb71b4c27ff6eb7f318d89a4c5
 )
 
 FetchContent_GetProperties(imnodes)
