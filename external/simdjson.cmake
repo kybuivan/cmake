@@ -19,30 +19,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-if(TARGET external::imnodes)
+if(TARGET external::simdjson)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'external::imnodes'")
+message(STATUS "Third-party (external): creating target 'external::simdjson'")
 
 include(FetchContent)
 
 FetchContent_Declare(
-    imnodes
-    GIT_REPOSITORY https://github.com/Nelarius/imnodes.git
-    GIT_TAG d88f99125bb72cdb71b4c27ff6eb7f318d89a4c5
+    simdjson
+    GIT_REPOSITORY https://github.com/simdjson/simdjson.git
+    GIT_TAG v3.6.3
+    GIT_SHALLOW 1
 )
 
-FetchContent_GetProperties(imnodes)
-if (NOT imnodes_POPULATED)
-    FetchContent_Populate(imnodes)
-    add_library(imnodes STATIC
-            "${imnodes_SOURCE_DIR}/imnodes.h"
-            "${imnodes_SOURCE_DIR}/imnodes_internal.h"
-            "${imnodes_SOURCE_DIR}/imnodes.cpp")
-    target_include_directories(imnodes PUBLIC ${imnodes_SOURCE_DIR})
-    target_link_libraries(imnodes PUBLIC external::imgui)
-    target_compile_definitions(imnodes PUBLIC IMGUI_DEFINE_MATH_OPERATORS)
-endif()
+FetchContent_MakeAvailable(simdjson)
 
-add_library(external::imnodes ALIAS imnodes)
+add_library(external::simdjson ALIAS simdjson)

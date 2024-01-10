@@ -19,30 +19,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-if(TARGET external::imnodes)
+if(TARGET external::cereal)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'external::imnodes'")
+message(STATUS "Third-party (external): creating target 'external::cereal'")
 
 include(FetchContent)
 
 FetchContent_Declare(
-    imnodes
-    GIT_REPOSITORY https://github.com/Nelarius/imnodes.git
-    GIT_TAG d88f99125bb72cdb71b4c27ff6eb7f318d89a4c5
+  cereal
+  GIT_REPOSITORY https://github.com/USCiLab/cereal.git
+  GIT_TAG  v1.3.2
+  GIT_SHALLOW    true
 )
 
-FetchContent_GetProperties(imnodes)
-if (NOT imnodes_POPULATED)
-    FetchContent_Populate(imnodes)
-    add_library(imnodes STATIC
-            "${imnodes_SOURCE_DIR}/imnodes.h"
-            "${imnodes_SOURCE_DIR}/imnodes_internal.h"
-            "${imnodes_SOURCE_DIR}/imnodes.cpp")
-    target_include_directories(imnodes PUBLIC ${imnodes_SOURCE_DIR})
-    target_link_libraries(imnodes PUBLIC external::imgui)
-    target_compile_definitions(imnodes PUBLIC IMGUI_DEFINE_MATH_OPERATORS)
-endif()
+set(BUILD_DOC OFF CACHE BOOL "" FORCE)
+set(BUILD_SANDBOX OFF CACHE BOOL "" FORCE)
+set(SKIP_PERFORMANCE_COMPARISON ON CACHE BOOL "" FORCE)
 
-add_library(external::imnodes ALIAS imnodes)
+FetchContent_MakeAvailable(cereal)
+
+add_library(external::cereal ALIAS cereal)

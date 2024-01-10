@@ -1,5 +1,5 @@
 # 
-# Copyright (c) 2023 Ky Bui Van
+# Copyright (c) 2023-2024 Ky Bui Van
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -11,6 +11,13 @@
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
 # 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 if(TARGET external::stb)
     return()
@@ -39,7 +46,7 @@ file(WRITE "${stb_BINARY_DIR}/stb_image.cpp.in" [[
 configure_file(${stb_BINARY_DIR}/stb_image.cpp.in ${stb_BINARY_DIR}/stb_image.cpp COPYONLY)
 
 # Define stb library
-add_library(stb ${stb_BINARY_DIR}/stb_image.cpp)
+add_library(stb ${stb_BINARY_DIR}/stb_image.cpp ${stb_SOURCE_DIR}/stb_vorbis.c)
 target_include_directories(stb PUBLIC "${stb_SOURCE_DIR}")
 
 add_library(external::stb ALIAS stb)

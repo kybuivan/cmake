@@ -19,30 +19,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-if(TARGET external::imnodes)
+if(TARGET external::lua)
     return()
 endif()
 
-message(STATUS "Third-party (external): creating target 'external::imnodes'")
+message(STATUS "Third-party (external): creating target 'external::lua'")
 
 include(FetchContent)
 
 FetchContent_Declare(
-    imnodes
-    GIT_REPOSITORY https://github.com/Nelarius/imnodes.git
-    GIT_TAG d88f99125bb72cdb71b4c27ff6eb7f318d89a4c5
+    lua
+    GIT_REPOSITORY https://github.com/lua/lua.git
+    GIT_TAG v5.4.6
 )
 
-FetchContent_GetProperties(imnodes)
-if (NOT imnodes_POPULATED)
-    FetchContent_Populate(imnodes)
-    add_library(imnodes STATIC
-            "${imnodes_SOURCE_DIR}/imnodes.h"
-            "${imnodes_SOURCE_DIR}/imnodes_internal.h"
-            "${imnodes_SOURCE_DIR}/imnodes.cpp")
-    target_include_directories(imnodes PUBLIC ${imnodes_SOURCE_DIR})
-    target_link_libraries(imnodes PUBLIC external::imgui)
-    target_compile_definitions(imnodes PUBLIC IMGUI_DEFINE_MATH_OPERATORS)
+FetchContent_GetProperties(lua)
+if (NOT lua_POPULATED)
+    FetchContent_Populate(lua)
+    file(GLOB_RECURSE lua_sources "${lua_SOURCE_DIR}/*.c")
+    file(GLOB_RECURSE lua_headers" ${lua_SOURCE_DIR}/*.h")
+    add_library(lua STATIC ${lua_sources} ${lua_headers})
+    target_include_directories(lua PUBLIC ${lua_SOURCE_DIR})
 endif()
 
-add_library(external::imnodes ALIAS imnodes)
+add_library(external::lua ALIAS lua)
